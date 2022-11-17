@@ -20,15 +20,15 @@ import V1SwaggerDocs from '@addressbook/routes/v1/swagger'
 
 export async function createServer(): Promise<Express> {
   
-  const yamlSpecFile = './config/v1docs.yml'
+  /*const yamlSpecFile = './config/v1docs.yml'
   const apiDefinition = YAML.load(yamlSpecFile)
   const apiSummary = summarise(apiDefinition)
-  logger.info(apiSummary)
+  logger.info(apiSummary)*/
 
   const server = express()
   server.use(bodyParser.json())
   
-  if (config.morganLogger) {
+  /*if (config.morganLogger) {
     server.use(morgan(':method :url :status :response-time ms - :res[content-length]'))
   }
   
@@ -38,11 +38,11 @@ export async function createServer(): Promise<Express> {
 
   if (config.addressBookDevLogger) {
     server.use(expressDevLogger)
-  }
+  }*/
 
   routes(server)
     
-  V1SwaggerDocs(server, 3000);
+  //V1SwaggerDocs(server, 3000);
   
   return server
 }
