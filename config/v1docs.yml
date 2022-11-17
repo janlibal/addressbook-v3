@@ -1,0 +1,71 @@
+openapi: 3.0.3
+info:
+    title: Addressbook API
+    description: Addressbook Backend 
+    termsOfService: http://swagger.io/terms/
+    contact:
+        email: libalj@seznam.cz
+    license:
+        name: MIT
+        url: https://opensource.org/licenses/MIT
+    version: 1.0.0
+externalDocs:
+    description: Find out more about Swagger
+    url: http://swagger.io
+servers:
+    - url: /api/v1
+
+tags:
+    - name: Test Docs
+      description: Addressbook Backend APIs
+
+paths:
+    /api/v1/test:
+        get:
+            description: Returns 'Hello <name>/stranger!!!' to the caller
+            tags:
+                - test
+            operationId: test
+            parameters:
+                - name: name
+                  required: false
+                  in: query
+                  description: The name of a caller
+                  schema:
+                      type: string
+            responses:
+                200:
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/HelloResponse'
+
+components:
+    securitySchemes:
+        bearerAuth:
+            type: http
+            scheme: bearer
+            bearerFormat: JWT
+
+    schemas:
+        FailResponse:
+            type: object
+            additionalProperties: false
+            required:
+                - success
+                - error
+            properties:
+                success:
+                    type: boolean
+                error:
+                    type: string
+
+        HelloResponse:
+            type: object
+            additionalProperties: false
+            required:
+                - message
+            properties:
+                message:
+                    type: string

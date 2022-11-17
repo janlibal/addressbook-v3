@@ -1,0 +1,12 @@
+{
+    "type": "service_account",
+    "project_id": "strv-addressbook-libal-jan",
+    "private_key_id": "05dce182e537599eca0a0d63fc4721e2bf267a12",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC262v7PXUbwSmW\nizd5nStZFl/BZ1ccSBIJWOBF6ztaJibDxnKykAGjfgzbMBCJxUVYMZ1Ht+DbNru6\nWVogOjteDEFnCD+8u6h6+nAFKw2CxmjHE9lnyyXq9UfQYAedIPzkZ9KBSQYMpHys\nSJv20wPJw5rwM/5Cx09GM9TaiMKuKCBflErPwH3JApc+QTBzZXzQasbeWh12fhkt\nek+haBWta1yeGLYt5x35kLCxmMVFIT3pSi3uSaXSoidLvUoW+YVoK3JMeOLfiCXr\nKk/v6Y9kQwEUjhTerr/EMnAOXM4P+f3eZo4zaSJ9SpjUi1XOA4MS8rxSD6t+d+C9\nAlY8pw21AgMBAAECggEADRkO7prQOahLds7prkDhk3u9aA8jBvCnL/mn94G4SoR8\nVpztZhlXMLKML57BtGfGhyHoWfQR+whwiU+wGyooSZv1i+/khnpmfkXUAx651TEp\nXAXxFZRPlwMwvPw/V1I/IYjIoz7MGtglYD3DwzkJZqdlvwjuDjCQ3d1EwtAzpn40\nT5Jr6Ru/YrRjC7iW0ZUsfuWdoe5dZvp2V57jzeGStNGZRmfMHnz0zyzKuBfnaXtF\n7KBI7aSN2XRxPcfnvxB2hpMgEKisnoV1yrUnNCccQyC2JGzXR/IaeTTQ/MC8UARI\nQDvtOlUIps2psn4v2/juh1gyrLBCMu3RKkm5n6w5+QKBgQD2q7jRQMAHWhYuFrhE\nbdeROnwx5IwJbyLCD1+YqnMvnu3wO5ZjayV6NcZ7iqRYL93Y0stlvh/xp68ZNDiM\n3dxIrBCF79US0WsTqw76M0hlVCoRTALy0LugOeig7G3+aeZk7GtE0vlWSowfsOdj\nHHwUkyRL99bxk15mse9DRnSvWQKBgQC91nVCL7s4+BuEP1Nua2BkY0KvrTM9paJE\nmzGQA2M5zNjSDmmxDWgy4BxQhDEFC2gPIfeSQOlRpVzEPkUWvrcAXuT6Jekzna1U\ny4ScptUaSMdTTnTdTZPaJYA6YOM6laowG8zBchjskfmfFd9PFScenqSxFbiky+GR\ntpQ+tFxBvQKBgQCr4DGyVJy5QrNLv/b7b1ISVp8tIKPW+wJMF+wzcyk5mFMQ3mRG\nt+TwR8IaWRt0ez3ok9C3/wdBGecu960jsn+If6Qvv1JHf3ZNyRZxjgQ23rNFRCKV\n0I278j2+y59E88NetUF1PlAQKXeDqX9BFxr6NyDGclXqFBZmFjuyM8igWQKBgA7I\nFyNLMinSb9oRUD7Fz6ChdfzV4KqJLiRnbSmIif5jK/LXOnWV1Ko5dxrx4BtDcxvS\nikNyGHjKBnolWx3VRcyalvu/XfQt7+QtYKsN9oPwbMzYzBK7SqruxphFGQxjwPe0\nAnKBnt001JoFivjObdhdg/dh+JmkYnEFJW/ofVKFAoGBAJAEnKfKQhzMC/25tniQ\nTR0u7mi+K/U3Y5/GJ8M+KH5acy/G0wDnppzJrIx0TgD5nxOA/C46FYCpnQAqFKRC\nLotXwlSTW6D7qAUsTJYg1JAWfczv8dv+nznBqV4EEst2+wSNxsqRIt4zpmNhd645\n+kEmw2Thf98JVZr/ZR80LghO\n-----END PRIVATE KEY-----\n",
+    "client_email": "firebase-adminsdk-9iq87@strv-addressbook-libal-jan.iam.gserviceaccount.com",
+    "client_id": "102899669716907252905",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-9iq87%40strv-addressbook-libal-jan.iam.gserviceaccount.com"
+}
