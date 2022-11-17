@@ -20,7 +20,7 @@ tags:
       description: Addressbook Backend APIs
 
 paths:
-    /api/v1/test:
+    /test:
         get:
             description: Returns 'Hello <name>/stranger!!!' to the caller
             tags:

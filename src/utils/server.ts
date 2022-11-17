@@ -20,7 +20,7 @@ import V1SwaggerDocs from '@addressbook/routes/v1/swagger'
 
 export async function createServer(): Promise<Express> {
   
-  const yamlSpecFile = './config/openapi.yml'
+  const yamlSpecFile = './config/v1docs.yml'
   const apiDefinition = YAML.load(yamlSpecFile)
   const apiSummary = summarise(apiDefinition)
   logger.info(apiSummary)
