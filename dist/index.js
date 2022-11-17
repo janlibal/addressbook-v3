@@ -5,10 +5,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const server_1 = require("./utils/server");
 const logger_1 = __importDefault(require("@addressbook/utils/logger"));
+const config_1 = __importDefault(require("@addressbook/config"));
 (0, server_1.createServer)()
     .then(server => {
-    server.listen(3000, () => {
-        logger_1.default.info(`Listening on http://localhost:3000`);
+    server.listen(config_1.default.port, () => {
+        logger_1.default.info(`Listening on http://localhost:${config_1.default.port}`);
     });
 })
     .catch(err => {

@@ -6,5 +6,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const index_1 = __importDefault(require("@addressbook/routes/v1/index"));
 function default_1(server) {
     server.use('/api/v1', index_1.default);
+    server.get('/aaa', (req, res, next) => {
+        res.status(200).json({
+            status: 'success',
+            message: 'aaa route',
+        });
+    });
 }
 exports.default = default_1;
