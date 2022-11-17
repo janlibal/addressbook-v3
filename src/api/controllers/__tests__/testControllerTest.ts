@@ -16,6 +16,5 @@ describe('GET /test', () => {
       .expect('Content-Type', /json/)
       .expect(200)
        expect(res.body).toMatchObject({'message': 'Hello, stranger!'})
-  
   })
 })
