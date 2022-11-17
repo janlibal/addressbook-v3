@@ -9,7 +9,7 @@ beforeAll(async () => {
   server = await createServer()
 })
 
-describe('GET /test', () => {
+describe('GET /api/v1/test', () => {
   it('should return 200 & valid response if request param list is empity', async () => {
     const res = await request(server)
       .get(`/api/v1/test`)
