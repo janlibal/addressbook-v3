@@ -19,7 +19,9 @@ const falso_1 = require("@ngneat/falso");
 function dummy() {
     const firstName = (0, falso_1.randFirstName)().toLowerCase();
     const lastName = (0, falso_1.randLastName)().toLocaleLowerCase();
-    const company = (0, falso_1.randCompanyName)().toLocaleLowerCase();
+    const companyFullName = (0, falso_1.randCompanyName)().toLocaleLowerCase();
+    const company = companyFullName.substring(0, 4);
+    const email = firstName + '.' + lastName + '@' + company + '.com'.toString();
     return {
         email: (0, falso_1.randEmail)(),
         password: (0, falso_1.randPassword)(),

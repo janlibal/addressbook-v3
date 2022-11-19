@@ -14,7 +14,7 @@ const options = {
         },
     },
     //apis: ["./src/routes/v1/v1docs.yml"],
-    apis: ["./config/v1docs.yml"],
+    apis: ["./config/v1/openapi.yml"],
 };
 const swaggerSpec = (0, swagger_jsdoc_1.default)(options);
 const swaggerDocs = (app, port) => {

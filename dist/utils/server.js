@@ -26,7 +26,7 @@ const express_dev_logger_1 = require("@addressbook/utils/express_dev_logger");
 const swagger_1 = __importDefault(require("@addressbook/routes/v1/swagger"));
 function createServer() {
     return __awaiter(this, void 0, void 0, function* () {
-        const yamlSpecFile = './config/v1docs.yml';
+        const yamlSpecFile = './config/v1/openapi.yml';
         const apiDefinition = yamljs_1.default.load(yamlSpecFile);
         const apiSummary = (0, swagger_routes_express_1.summarise)(apiDefinition);
         logger_1.default.info(apiSummary);

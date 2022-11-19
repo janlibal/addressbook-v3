@@ -20,9 +20,11 @@ export function dummy() {
 
     const firstName = randFirstName().toLowerCase()
     const lastName = randLastName().toLocaleLowerCase()
-    const company = randCompanyName().toLocaleLowerCase()
+    const companyFullName = randCompanyName().toLocaleLowerCase()
+    const company = companyFullName.substring(0,4)
 
-    
+    const email = firstName + '.' + lastName + '@' + company + '.com'.toString()
+        
     return {
         email: randEmail(),
         password: randPassword(),
