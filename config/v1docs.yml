@@ -16,12 +16,13 @@ servers:
     - url: /api/v1
 
 tags:
-    - name: Test Docs
-      description: Addressbook Backend APIs
+    - name: AddressBook
+      description: Addressbook Backend API
 
 paths:
-    /test:
+    /api/v1/test:
         get:
+            summary: Test
             description: Returns 'Hello <name>/stranger!!!' to the caller
             tags:
                 - test
@@ -40,6 +41,125 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/HelloResponse'
+
+
+    /api/v1/user:
+        post:
+            summary: Create User
+            tags:
+                - user
+            operationId: createUser
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            additionalProperties: false
+                            required:
+                                - email
+                                - password
+                            properties:
+                                email:
+                                    type: string
+                                    format: email
+                                password:
+                                    type: string
+            responses:
+                201:
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                additionalProperties: false
+                                required:
+                                    - userId
+                                    - expireAt
+                                    - token
+                                properties:
+                                    userId:
+                                        type: string
+                                    expireAt:
+                                        type: string
+                                    token:
+                                        type: string
+                                        format: '^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$'
+                409:
+                    description: Conflict
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/FailResponse'
+                500:
+                    description: Internal Server Error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/FailResponse'
+    
+
+    /api/v1/login:
+        post:
+            summary: Login User
+            tags:
+                - user
+            operationId: login
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            additionalProperties: false
+                            required:
+                                - email
+                                - password
+                            properties:
+                                email:
+                                    type: string
+                                    format: email
+                                password:
+                                    type: string
+            responses:
+                200:
+                    description: Success
+                    headers:
+                        X-Expires-After:
+                            description: date in UTC when token expires
+                            required: true
+                            schema:
+                                type: string
+                                format: date-time
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                additionalProperties: false
+                                required:
+                                    - userId
+                                    - expireAt
+                                    - token
+                                properties:
+                                    userId:
+                                        type: string
+                                    expireAt:
+                                        type: string
+                                    token:
+                                        type: string
+                                        format: '^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$'
+                404:
+                    description: Invalid Login/Password
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/FailResponse'
+                500:
+                    description: Internal Server Error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/FailResponse'
 
 components:
     securitySchemes:
