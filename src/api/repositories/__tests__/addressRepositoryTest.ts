@@ -12,9 +12,13 @@ afterAll(async () => {
     await db.close()
 })
 
+/*beforeEach(async () => {
+    jest.setTimeout(20000)
+})*/
+
 
 describe('Save Contact', () => {
-    it('1. Returns the data to be saved plus Id of logged user.', async () => {
+    /*it('1. Returns the data to be saved plus Id of logged user.', async () => {
 
         const dummyUser = await createDummy()
 
@@ -54,7 +58,7 @@ describe('Save Contact', () => {
             address: expect.any(String),
         })
 
-    })
+    })*/
 
     it('2. Returns user does not exist.', async () => {
         const input = {
@@ -105,9 +109,9 @@ describe('Get User Email', () => {
 
         await expect(userRepository.getUserEmail(userData)).resolves.toEqual(
             {
-                /*user: {
-                    email: expect.stringMatching(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i),
-                },*/
+                //user: {
+                //    email: expect.stringMatching(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i),
+                //},
                 email: expect.any(String)
             }
         )

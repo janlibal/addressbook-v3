@@ -12,7 +12,7 @@ afterAll(async () => {
 })
 
 describe('save', () => {
-    it('should create user', async () => {
+    it('1. should create user', async () => {
         const email = randEmail()
         const password = randPassword()
 
@@ -35,7 +35,7 @@ describe('save', () => {
         //expect(fetched!.created.getTime()).toBeLessThanOrEqual(after)
     })
 
-    it('should not save user with invalid email', async () => {
+    it('2. should not save user with invalid email', async () => {
         const user1 = new User({
             email: 'email@em.o',
             password: randPassword(),
@@ -45,17 +45,17 @@ describe('save', () => {
         )
     })
 
-    it('should not save user without an email', async () => {
+    it('3. should not save user without an email', async () => {
         const user = new User({ password: randPassword() })
         await expect(user.save()).rejects.toThrowError(/email/)
     })
 
-    it('should not save user without a password', async () => {
+    it('4. should not save user without a password', async () => {
         const user2 = new User({ email: randEmail() })
         await expect(user2.save()).rejects.toThrowError(/password/)
     })
 
-    it('should not save user with the same email', async () => {
+    it('5. should not save user with the same email', async () => {
         const email = randEmail()
         const password = randPassword()
         const userData = { email: email, password: password }
@@ -67,7 +67,7 @@ describe('save', () => {
         await expect(user2.save()).rejects.toThrowError(/E11000/)
     })
 
-    it('should not save password in a readable form', async () => {
+    it('6. should not save password in a readable form', async () => {
         const password = randPassword()
 
         const user1 = new User({ email: randEmail(), password: password })
@@ -83,20 +83,20 @@ describe('save', () => {
 })
 
 describe('comparePassword', () => {
-    it('should return true for valid password', async () => {
+    it('7. should return true for valid password', async () => {
         const password = randPassword()
         const user = new User({ email: randEmail(), password: password })
         await user.save()
         expect(await user.comparePassword(password)).toBe(true)
     })
 
-    it('should return false for invalid password', async () => {
+    it('8. should return false for invalid password', async () => {
         const user = new User({ email: randEmail(), password: randPassword() })
         await user.save()
         expect(await user.comparePassword(randPassword())).toBe(false)
     })
 
-    it('should update password hash if password is updated', async () => {
+    it('9. should update password hash if password is updated', async () => {
         const password1 = randPassword()
         const user = new User({ email: randEmail(), password: password1 })
         const dbUser1 = await user.save()
@@ -111,7 +111,7 @@ describe('comparePassword', () => {
 })
 
 describe('toJSON', () => {
-    it('should return valid JSON', async () => {
+    it('10. should return valid JSON', async () => {
         const email = randEmail()
         const password = randPassword()
 

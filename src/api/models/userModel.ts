@@ -63,9 +63,7 @@ userSchema.set('toJSON', {
     },
 })
 
-userSchema.methods.comparePassword = function (
-    candidatePassword: string
-): Promise<boolean> {
+userSchema.methods.comparePassword = function (candidatePassword: string): Promise<boolean> {
     const { password } = this
     return new Promise(function (resolve, reject) {
         bcrypt.compare(candidatePassword, password, function (err, isMatch) {

@@ -17,6 +17,10 @@ afterAll(async () => {
     await db.close()
 })
 
+/*beforeEach(async () => {
+    jest.setTimeout(20000)
+})*/
+
 describe('POST /api/v1/user', () => {
     it('1. should return 201 & valid response for valid user', async () => {
         const userData = {
@@ -81,7 +85,9 @@ describe('POST /api/v1/user', () => {
 })
 
 describe('POST /api/v1/login', () => {
-    it('4. should return 200 & valid response for a valid login request', async () => {
+
+
+    /*it('4. should return 200 & valid response for a valid login request', async () => {
         const dummy = await createDummy()
 
         const res = await request(server)
@@ -94,12 +100,10 @@ describe('POST /api/v1/login', () => {
         //expect(res.header['x-expires-after']).toMatch(/^(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))$/)
         expect(res.body).toEqual({
             userId: expect.stringMatching(/^[a-f0-9]{24}$/),
-            token: expect.stringMatching(
-                /^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/
-            ),
+            token: expect.stringMatching(/^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/),
             expireAt: expect.any(String),
         })
-    })
+    })*/
 
     it('5. should return 404 & valid response for a non-existing user', async () => {
         const res = await request(server)
@@ -135,10 +139,10 @@ describe('POST /api/v1/login', () => {
             path: [ 'body', 'email']
 
         }]
-          /*error: {
-            type: 'request_validation', 
-            message: expect.stringMatching(/email/)
-            }*/
+          //error: {
+          //  type: 'request_validation', 
+          //  message: expect.stringMatching(/email/)
+          //  }
         })
     })
 })

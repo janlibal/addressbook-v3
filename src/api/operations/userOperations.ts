@@ -49,8 +49,9 @@ function registerUser(input: any, res: Response): void {
 }
 
 export function login(input: any, res: Response): void {
+    
     const loginData = {
-        email: input.email.toLowerCase(),
+        email: input.email, //.toLowerCase(),
         password: input.password,
     }
 

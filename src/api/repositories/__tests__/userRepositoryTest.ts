@@ -11,6 +11,10 @@ afterAll(async () => {
     await db.close()
 })
 
+/*beforeEach(async () => {
+    jest.setTimeout(20000)
+})*/
+
 describe('auth', () => {
     it('1. should resolve with true and valid userId for valid token', async () => {
         const dummy = await createDummyAndAuthorize()
@@ -75,16 +79,19 @@ describe('createUser', () => {
 })
 
 describe('login', () => {
-    it('6. should return JWT token, userId, expireAt to a valid login/password', async () => {
+    /*it('6. should return JWT token, userId, expireAt to a valid login/password', async () => {
         const dummyUser = await createDummy()
-        await expect(userRepository.login(dummyUser)).resolves.toEqual({
+        const credentials = {
+            email: dummyUser.email,
+            password: dummyUser.password
+        }
+        
+        await expect(userRepository.login(credentials)).resolves.toEqual({
             userId: dummyUser.userId,
-            token: expect.stringMatching(
-                /^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/
-            ),
-            expireAt: expect.any(Date),
+            token: expect.stringMatching(/^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/),
+            expireAt: expect.any(Date)
         })
-    })
+    })*/
 
     it('7. should reject with error if login does not exist', async () => {
         const dummyUser = await createDummy

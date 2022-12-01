@@ -1,8 +1,11 @@
 import { NextFunction, Request, Response } from 'express'
-import v1Routes from '@addressbook/routes/v1/index'
+import userRoutes from '@addressbook/routes/v1/userRoutes'
+import addressRoutes from '@addressbook/routes/v1/addressRoutes'
+
 
 
 export default function (server: any) {
-    server.use('/api/v1', v1Routes)
+    server.use('/api/v1', userRoutes)
+    server.use('/api/v1', addressRoutes)
  
 }

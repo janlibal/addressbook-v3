@@ -22,7 +22,7 @@ afterAll(() => __awaiter(void 0, void 0, void 0, function* () {
     yield db_1.default.close();
 }));
 describe('save', () => {
-    it('should create user', () => __awaiter(void 0, void 0, void 0, function* () {
+    it('1. should create user', () => __awaiter(void 0, void 0, void 0, function* () {
         const email = (0, falso_1.randEmail)();
         const password = (0, falso_1.randPassword)();
         const before = Date.now();
@@ -36,22 +36,22 @@ describe('save', () => {
         //expect(before).toBeLessThanOrEqual(fetched!.created.getTime())
         //expect(fetched!.created.getTime()).toBeLessThanOrEqual(after)
     }));
-    it('should not save user with invalid email', () => __awaiter(void 0, void 0, void 0, function* () {
+    it('2. should not save user with invalid email', () => __awaiter(void 0, void 0, void 0, function* () {
         const user1 = new userModel_1.default({
             email: 'email@em.o',
             password: (0, falso_1.randPassword)(),
         });
         yield expect(user1.save()).rejects.toThrowError(/do not match email regex/);
     }));
-    it('should not save user without an email', () => __awaiter(void 0, void 0, void 0, function* () {
+    it('3. should not save user without an email', () => __awaiter(void 0, void 0, void 0, function* () {
         const user = new userModel_1.default({ password: (0, falso_1.randPassword)() });
         yield expect(user.save()).rejects.toThrowError(/email/);
     }));
-    it('should not save user without a password', () => __awaiter(void 0, void 0, void 0, function* () {
+    it('4. should not save user without a password', () => __awaiter(void 0, void 0, void 0, function* () {
         const user2 = new userModel_1.default({ email: (0, falso_1.randEmail)() });
         yield expect(user2.save()).rejects.toThrowError(/password/);
     }));
-    it('should not save user with the same email', () => __awaiter(void 0, void 0, void 0, function* () {
+    it('5. should not save user with the same email', () => __awaiter(void 0, void 0, void 0, function* () {
         const email = (0, falso_1.randEmail)();
         const password = (0, falso_1.randPassword)();
         const userData = { email: email, password: password };
@@ -60,7 +60,7 @@ describe('save', () => {
         const user2 = new userModel_1.default(userData);
         yield expect(user2.save()).rejects.toThrowError(/E11000/);
     }));
-    it('should not save password in a readable form', () => __awaiter(void 0, void 0, void 0, function* () {
+    it('6. should not save password in a readable form', () => __awaiter(void 0, void 0, void 0, function* () {
         const password = (0, falso_1.randPassword)();
         const user1 = new userModel_1.default({ email: (0, falso_1.randEmail)(), password: password });
         yield user1.save();
@@ -72,18 +72,18 @@ describe('save', () => {
     }));
 });
 describe('comparePassword', () => {
-    it('should return true for valid password', () => __awaiter(void 0, void 0, void 0, function* () {
+    it('7. should return true for valid password', () => __awaiter(void 0, void 0, void 0, function* () {
         const password = (0, falso_1.randPassword)();
         const user = new userModel_1.default({ email: (0, falso_1.randEmail)(), password: password });
         yield user.save();
         expect(yield user.comparePassword(password)).toBe(true);
     }));
-    it('should return false for invalid password', () => __awaiter(void 0, void 0, void 0, function* () {
+    it('8. should return false for invalid password', () => __awaiter(void 0, void 0, void 0, function* () {
         const user = new userModel_1.default({ email: (0, falso_1.randEmail)(), password: (0, falso_1.randPassword)() });
         yield user.save();
         expect(yield user.comparePassword((0, falso_1.randPassword)())).toBe(false);
     }));
-    it('should update password hash if password is updated', () => __awaiter(void 0, void 0, void 0, function* () {
+    it('9. should update password hash if password is updated', () => __awaiter(void 0, void 0, void 0, function* () {
         const password1 = (0, falso_1.randPassword)();
         const user = new userModel_1.default({ email: (0, falso_1.randEmail)(), password: password1 });
         const dbUser1 = yield user.save();
@@ -96,7 +96,7 @@ describe('comparePassword', () => {
     }));
 });
 describe('toJSON', () => {
-    it('should return valid JSON', () => __awaiter(void 0, void 0, void 0, function* () {
+    it('10. should return valid JSON', () => __awaiter(void 0, void 0, void 0, function* () {
         const email = (0, falso_1.randEmail)();
         const password = (0, falso_1.randPassword)();
         const user = new userModel_1.default({ email: email, password: password });

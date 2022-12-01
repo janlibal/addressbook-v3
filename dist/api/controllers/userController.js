@@ -16,6 +16,30 @@ exports.createUser = exports.login = exports.auth = void 0;
 const userRepository_1 = __importDefault(require("@addressbook/api/repositories/userRepository"));
 const userOperations_1 = __importDefault(require("@addressbook/api/operations/userOperations"));
 const express_1 = require("@addressbook/utils/express");
+/*export function auth(req: Request, res: Response, next: NextFunction): void {
+  const token = req.headers.authorization!
+  userRepository
+      .auth(token)
+      .then((authResponse) => {
+          if (!(authResponse as any).error) {
+              res.locals.auth = {
+                  userId: (authResponse as { userId: string }).userId,
+                  expireAt: (authResponse as { expireAt: Number }).expireAt,
+              }
+              next()
+          } else {
+              writeJsonResponse(res, 401, authResponse)
+          }
+      })
+      .catch((err) => {
+          writeJsonResponse(res, 500, {
+              error: {
+                  type: 'internal_server_error',
+                  message: 'Internal Server Error',
+              },
+          })
+      })
+}*/
 function auth(req, res, next) {
     const token = req.headers.authorization;
     userRepository_1.default
@@ -24,6 +48,7 @@ function auth(req, res, next) {
         if (!authResponse.error) {
             res.locals.auth = {
                 userId: authResponse.userId,
+                //expireAt: (authResponse as { expireAt: Date }).expireAt,
             };
             next();
         }

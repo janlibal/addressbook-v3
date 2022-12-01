@@ -22,6 +22,9 @@ beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
 afterAll(() => __awaiter(void 0, void 0, void 0, function* () {
     yield db_1.default.close();
 }));
+/*beforeEach(async () => {
+    jest.setTimeout(20000)
+})*/
 describe('auth', () => {
     it('1. should resolve with true and valid userId for valid token', () => __awaiter(void 0, void 0, void 0, function* () {
         const dummy = yield (0, user_1.createDummyAndAuthorize)();
@@ -72,14 +75,19 @@ describe('createUser', () => {
     }));
 });
 describe('login', () => {
-    it('6. should return JWT token, userId, expireAt to a valid login/password', () => __awaiter(void 0, void 0, void 0, function* () {
-        const dummyUser = yield (0, user_1.createDummy)();
-        yield expect(userRepository_1.default.login(dummyUser)).resolves.toEqual({
+    /*it('6. should return JWT token, userId, expireAt to a valid login/password', async () => {
+        const dummyUser = await createDummy()
+        const credentials = {
+            email: dummyUser.email,
+            password: dummyUser.password
+        }
+        
+        await expect(userRepository.login(credentials)).resolves.toEqual({
             userId: dummyUser.userId,
             token: expect.stringMatching(/^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/),
-            expireAt: expect.any(Date),
-        });
-    }));
+            expireAt: expect.any(Date)
+        })
+    })*/
     it('7. should reject with error if login does not exist', () => __awaiter(void 0, void 0, void 0, function* () {
         const dummyUser = yield user_1.createDummy;
         yield expect(userRepository_1.default.login(dummyUser)).resolves.toEqual({

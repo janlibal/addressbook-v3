@@ -12,4 +12,5 @@ const router = express_1.default.Router();
 router.get('/test', testController_1.test);
 router.post('/user', (0, validate_1.validate)(userSchema_1.createUserSchema), userController_1.createUser);
 router.post('/login', (0, validate_1.validate)(userSchema_1.loginUserSchema), userController_1.login);
+//router.post('/contact', validate(createAddressSchema), contact)
 exports.default = router;

@@ -46,7 +46,7 @@ function registerUser(input, res) {
 }
 function login(input, res) {
     const loginData = {
-        email: input.email.toLowerCase(),
+        email: input.email,
         password: input.password,
     };
     userRepository_1.default

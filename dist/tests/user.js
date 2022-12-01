@@ -17,14 +17,9 @@ const userModel_1 = __importDefault(require("@addressbook/api/models/userModel")
 const userRepository_1 = __importDefault(require("@addressbook/api/repositories/userRepository"));
 const falso_1 = require("@ngneat/falso");
 function dummy() {
-    const firstName = (0, falso_1.randFirstName)().toLowerCase();
-    const lastName = (0, falso_1.randLastName)().toLocaleLowerCase();
-    const companyFullName = (0, falso_1.randCompanyName)().toLocaleLowerCase();
-    const company = companyFullName.substring(0, 4);
-    const email = firstName + '.' + lastName + '@' + company + '.com'.toString();
     return {
         email: (0, falso_1.randEmail)(),
-        password: (0, falso_1.randPassword)(),
+        password: 'password123456' //randPassword(),
     };
 }
 exports.dummy = dummy;
@@ -33,7 +28,12 @@ function createDummy() {
         const user = dummy();
         const dbUser = new userModel_1.default(user);
         yield dbUser.save();
-        return Object.assign(Object.assign({}, user), { userId: dbUser._id.toString() });
+        return {
+            //...user, 
+            userId: dbUser._id.toString(),
+            email: dbUser.email,
+            password: dbUser.password,
+        };
     });
 }
 exports.createDummy = createDummy;
@@ -44,7 +44,13 @@ function createDummyAndAuthorize() {
             userId: user.userId,
         };
         const authToken = yield userRepository_1.default.createAuthToken(userData);
-        return Object.assign(Object.assign({}, user), { token: authToken.token });
+        //console.log('userId: ' + userData.userId),
+        //console.log('token: ' +authToken.token)
+        return {
+            //...user,
+            userId: userData.userId,
+            token: authToken.token
+        };
     });
 }
 exports.createDummyAndAuthorize = createDummyAndAuthorize;

@@ -28,7 +28,7 @@ const signOptions = {
 };
 const publicKey = fs_1.default.readFileSync(config_1.default.publicKeyFile);
 const verifyOptions = {
-    algorithms: ['RS256'],
+    algorithms: ['RS256']
 };
 function getUserEmail(data) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -64,7 +64,7 @@ function createAuthToken(data) {
         const userId = (_a = data._id) !== null && _a !== void 0 ? _a : data.userId;
         jsonwebtoken_1.default.sign({ userId: userId }, privateSecret, signOptions, (err, encoded) => {
             if (err === null && encoded !== undefined) {
-                const expireAfter = 2 * 604800; /* two weeks */
+                const expireAfter = 2 * 604800; // two weeks 
                 const expireAt = new Date();
                 expireAt.setSeconds(expireAt.getSeconds() + expireAfter);
                 resolve({
@@ -125,17 +125,16 @@ function login(input) {
 function auth(bearerToken) {
     return new Promise(function (resolve, reject) {
         const token = bearerToken.replace('Bearer ', '');
-        //jwt.verify(token, publicKey, verifyOptions, (err: VerifyErrors | null, decoded: object | undefined) => {
         jsonwebtoken_1.default.verify(token, publicKey, verifyOptions, (err, decoded) => {
+            //jwt.verify(token, publicKey, verifyOptions, (err, decoded) => {
             if (err === null && decoded !== undefined) {
                 const d = decoded;
-                //const d = decoded as {exp: number}
-                console.log('decoded userId:' + d.exp);
-                if (d.userId) {
-                    //if (d.exp) {
+                //if (d.userId) {
+                if (decoded.userId) {
+                    //if (t.exp) {
                     resolve({
-                        userId: d.userId,
-                        expireAt: d.exp,
+                        userId: decoded.userId,
+                        expireAt: decoded.exp
                     });
                     return;
                 }

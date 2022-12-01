@@ -5,11 +5,12 @@ import { User } from '@addressbook/api/models/userModel'
 import config from '@addressbook/config'
 import logger from '@addressbook/utils/logger'
 
+
 export type ErrorResponse = { error: { type: string; message: string } }
-export type CreateUserResponse = ErrorResponse | { userId: string; token: string; expireAt: Date }
-export type LoginUserResponse = ErrorResponse | { userId: string; token: string; expireAt: Date }
-export type AuthResponse = ErrorResponse | { expireAt: number; userId: string }
-export type GetUserEmailResponse = ErrorResponse |  {email: string}
+export type CreateUserResponse = ErrorResponse | { userId: string; token: string; expireAt: Date; }
+export type LoginUserResponse = ErrorResponse | { userId: string; token: string; expireAt: Date;  }
+export type AuthResponse = ErrorResponse | { userId: string; expireAt: Date }
+export type GetUserEmailResponse = ErrorResponse |  { email: string }
 
 
 const privateKey = fs.readFileSync(config.privateKeyFile)
@@ -24,9 +25,8 @@ const signOptions: SignOptions = {
 
 const publicKey = fs.readFileSync(config.publicKeyFile)
 const verifyOptions: VerifyOptions = {
-    algorithms: ['RS256'],
+    algorithms: ['RS256']
 }
-
 
 
 async function getUserEmail(data: any): Promise<GetUserEmailResponse> {
@@ -65,13 +65,9 @@ async function getUserEmail(data: any): Promise<GetUserEmailResponse> {
 function createAuthToken(data: any): Promise<{ userId: string; token: string; expireAt: Date }> {
     return new Promise(function (resolve, reject) {
         const userId = data._id ?? data.userId
-        jwt.sign(
-            { userId: userId },
-            privateSecret,
-            signOptions,
-            (err: Error | null, encoded: string | undefined) => {
+        jwt.sign({ userId: userId }, privateSecret, signOptions, (err: Error | null, encoded: string | undefined) => {
                 if (err === null && encoded !== undefined) {
-                    const expireAfter = 2 * 604800 /* two weeks */
+                    const expireAfter = 2 * 604800 // two weeks 
                     const expireAt = new Date()
                     expireAt.setSeconds(expireAt.getSeconds() + expireAfter)
                     resolve({
@@ -88,11 +84,12 @@ function createAuthToken(data: any): Promise<{ userId: string; token: string; ex
 }
 
 async function login(input: any): Promise<LoginUserResponse> {
+        
     const userData = {
         email: input.email,
         password: input.password,
     }
-
+    
     try {
         const user = await User.findOne({ email: userData.email })
         if (!user) {
@@ -132,21 +129,21 @@ async function login(input: any): Promise<LoginUserResponse> {
 }
 
 
+
 function auth(bearerToken: string): Promise<AuthResponse> {
     return new Promise(function (resolve, reject) {
         const token = bearerToken.replace('Bearer ', '')
-        //jwt.verify(token, publicKey, verifyOptions, (err: VerifyErrors | null, decoded: object | undefined) => {
-        jwt.verify(token, publicKey, verifyOptions, (err, decoded) => {
+        jwt.verify(token, publicKey, verifyOptions, (err: VerifyErrors | null, decoded: any | undefined) => {
+        //jwt.verify(token, publicKey, verifyOptions, (err, decoded) => {
             if (err === null && decoded !== undefined) {
-                const d = decoded as { userId?: string; exp: number }
-                //const d = decoded as {exp: number}
-                console.log('decoded userId:' + d.exp)
-                if (d.userId) {
-                    //if (d.exp) {
+                const d = decoded as { userId?: string; exp: Date }
+                //if (d.userId) {
+                if (decoded.userId) {
+                    //if (t.exp) {
                     resolve({
-                        userId: d.userId,
-                        expireAt: d.exp,
-                    })
+                        userId: decoded.userId,
+                        expireAt: decoded.exp
+                    })  
                     return
                 }
             }
@@ -159,6 +156,8 @@ function auth(bearerToken: string): Promise<AuthResponse> {
         })
     })
 }
+
+
 
 function createUser(input: any): Promise<CreateUserResponse> {
     const userData = {

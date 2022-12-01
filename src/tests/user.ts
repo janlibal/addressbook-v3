@@ -4,30 +4,14 @@ import { randCompanyName, randEmail, randFirstName, randLastName, randPassword }
 
 type DummyUser = { email: string; password: string; userId: string }
 
-type AuthorizedDummyUser = {
-    email: string
-    password: string
-    userId: string
-    token: string
-}
-type AuthorizedRegisteredUser = {
-    token: string
-    userId: string
-    expireAt: Date
-}
+type AuthorizedDummyUser = { userId: string; token: string }
+type AuthorizedRegisteredUser = { token: string;  userId: string; expireAt: Date }
 
 export function dummy() {
-
-    const firstName = randFirstName().toLowerCase()
-    const lastName = randLastName().toLocaleLowerCase()
-    const companyFullName = randCompanyName().toLocaleLowerCase()
-    const company = companyFullName.substring(0,4)
-
-    const email = firstName + '.' + lastName + '@' + company + '.com'.toString()
         
     return {
         email: randEmail(),
-        password: randPassword(),
+        password: 'password123456' //randPassword(),
     }
 }
 
@@ -36,8 +20,17 @@ export async function createDummy(): Promise<DummyUser> {
     const user = dummy()
     const dbUser = new User(user)
     await dbUser.save()
-    return { ...user, userId: dbUser._id.toString() }
+    return { 
+        //...user, 
+        userId: dbUser._id.toString(),
+        email: dbUser.email,
+        password: dbUser.password,
+    }
 }
+
+
+
+
 
 export async function createDummyAndAuthorize(): Promise<AuthorizedDummyUser> {
     const user = await createDummy()
@@ -46,11 +39,26 @@ export async function createDummyAndAuthorize(): Promise<AuthorizedDummyUser> {
     }
 
     const authToken = await userRepository.createAuthToken(userData)
+
+    //console.log('userId: ' + userData.userId),
+    //console.log('token: ' +authToken.token)
+
     return {
-        ...user,
-        token: authToken.token,
+        //...user,
+        userId: userData.userId,
+        token: authToken.token
     }
 }
+
+
+
+
+
+
+
+
+
+
 
 export async function authorizeUser(usrId: string): Promise<AuthorizedRegisteredUser> {
     const userData = {
