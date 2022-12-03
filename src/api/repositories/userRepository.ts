@@ -64,7 +64,14 @@ async function getUserEmail(data: any): Promise<GetUserEmailResponse> {
 
 function createAuthToken(data: any): Promise<{ userId: string; token: string; expireAt: Date }> {
     return new Promise(function (resolve, reject) {
-        const userId = data._id ?? data.userId
+        let userId:string
+        //const userId = data._id ?? data
+        //const userId = data._id ?? data.userId
+        if(!data._id){
+            userId = data
+        } else {
+            userId = data._id
+        }
         jwt.sign({ userId: userId }, privateSecret, signOptions, (err: Error | null, encoded: string | undefined) => {
                 if (err === null && encoded !== undefined) {
                     const expireAfter = 2 * 604800 // two weeks 
@@ -82,6 +89,7 @@ function createAuthToken(data: any): Promise<{ userId: string; token: string; ex
         )
     })
 }
+
 
 async function login(input: any): Promise<LoginUserResponse> {
         
@@ -112,6 +120,7 @@ async function login(input: any): Promise<LoginUserResponse> {
         }
 
         const authToken = await createAuthToken(user._id.toString())
+       
         return {
             userId: user._id.toString(),
             token: authToken.token,
@@ -136,10 +145,10 @@ function auth(bearerToken: string): Promise<AuthResponse> {
         jwt.verify(token, publicKey, verifyOptions, (err: VerifyErrors | null, decoded: any | undefined) => {
         //jwt.verify(token, publicKey, verifyOptions, (err, decoded) => {
             if (err === null && decoded !== undefined) {
-                const d = decoded as { userId?: string; exp: Date }
+                //const d = decoded as { userId?: string; exp: Date }
                 //if (d.userId) {
                 if (decoded.userId) {
-                    //if (t.exp) {
+                    //if (decoded.exp) {
                     resolve({
                         userId: decoded.userId,
                         expireAt: decoded.exp
@@ -174,7 +183,7 @@ function createUser(input: any): Promise<CreateUserResponse> {
             .then(createAuthToken)
             .then(function (login) {
                 resolve({
-                    userId: login.userId.toString(),
+                    userId: login.userId, //.toString(),
                     token: login.token,
                     expireAt: login.expireAt,
                 })

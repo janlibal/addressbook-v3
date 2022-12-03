@@ -29,8 +29,7 @@ function createDummy() {
         const dbUser = new userModel_1.default(user);
         yield dbUser.save();
         return {
-            //...user, 
-            userId: dbUser._id.toString(),
+            _id: dbUser._id.toString(),
             email: dbUser.email,
             password: dbUser.password,
         };
@@ -41,14 +40,11 @@ function createDummyAndAuthorize() {
     return __awaiter(this, void 0, void 0, function* () {
         const user = yield createDummy();
         const userData = {
-            userId: user.userId,
+            _id: user._id,
         };
         const authToken = yield userRepository_1.default.createAuthToken(userData);
-        //console.log('userId: ' + userData.userId),
-        //console.log('token: ' +authToken.token)
         return {
-            //...user,
-            userId: userData.userId,
+            _id: userData._id,
             token: authToken.token
         };
     });
@@ -61,7 +57,7 @@ function authorizeUser(usrId) {
         };
         const authToken = yield userRepository_1.default.createAuthToken(userData);
         return {
-            userId: authToken.userId,
+            _id: authToken.userId,
             expireAt: authToken.expireAt,
             token: authToken.token,
         };

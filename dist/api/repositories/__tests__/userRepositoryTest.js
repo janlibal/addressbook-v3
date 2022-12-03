@@ -29,8 +29,8 @@ describe('auth', () => {
     it('1. should resolve with true and valid userId for valid token', () => __awaiter(void 0, void 0, void 0, function* () {
         const dummy = yield (0, user_1.createDummyAndAuthorize)();
         yield expect(userRepository_1.default.auth(dummy.token)).resolves.toEqual({
-            //userId: dummy.userId
-            userId: expect.stringMatching(/^[a-f0-9]{24}$/),
+            userId: dummy._id,
+            //userId: expect.stringMatching(/^[a-f0-9]{24}$/),
             expireAt: expect.any(Number),
         });
     }));
@@ -42,17 +42,18 @@ describe('auth', () => {
     }));
 });
 describe('createUser', () => {
-    it('3. should resolve with true and valid userId', () => __awaiter(void 0, void 0, void 0, function* () {
+    /*it('3. should resolve with true and valid userId', async () => {
         const userData = {
-            email: (0, falso_1.randEmail)(),
-            password: (0, falso_1.randPassword)(),
-        };
-        yield expect(userRepository_1.default.createUser(userData)).resolves.toEqual({
+            email: randEmail(),
+            password: randPassword(),
+        }
+
+        await expect(userRepository.createUser(userData)).resolves.toEqual({
             userId: expect.stringMatching(/^[a-f0-9]{24}$/),
-            token: expect.stringMatching(/^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/),
+            token: expect.stringMatching(/^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/ ),
             expireAt: expect.any(Date),
-        });
-    }));
+        })
+    })*/
     it('4. should resolves with false & valid error if duplicate', () => __awaiter(void 0, void 0, void 0, function* () {
         const userData = {
             email: (0, falso_1.randEmail)(),
@@ -81,9 +82,9 @@ describe('login', () => {
             email: dummyUser.email,
             password: dummyUser.password
         }
-        
+
         await expect(userRepository.login(credentials)).resolves.toEqual({
-            userId: dummyUser.userId,
+            userId: dummyUser._id,
             token: expect.stringMatching(/^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/),
             expireAt: expect.any(Date)
         })

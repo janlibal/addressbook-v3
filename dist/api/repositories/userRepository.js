@@ -60,8 +60,15 @@ function getUserEmail(data) {
 }
 function createAuthToken(data) {
     return new Promise(function (resolve, reject) {
-        var _a;
-        const userId = (_a = data._id) !== null && _a !== void 0 ? _a : data.userId;
+        let userId;
+        //const userId = data._id ?? data
+        //const userId = data._id ?? data.userId
+        if (!data._id) {
+            userId = data;
+        }
+        else {
+            userId = data._id;
+        }
         jsonwebtoken_1.default.sign({ userId: userId }, privateSecret, signOptions, (err, encoded) => {
             if (err === null && encoded !== undefined) {
                 const expireAfter = 2 * 604800; // two weeks 
@@ -128,10 +135,10 @@ function auth(bearerToken) {
         jsonwebtoken_1.default.verify(token, publicKey, verifyOptions, (err, decoded) => {
             //jwt.verify(token, publicKey, verifyOptions, (err, decoded) => {
             if (err === null && decoded !== undefined) {
-                const d = decoded;
+                //const d = decoded as { userId?: string; exp: Date }
                 //if (d.userId) {
                 if (decoded.userId) {
-                    //if (t.exp) {
+                    //if (decoded.exp) {
                     resolve({
                         userId: decoded.userId,
                         expireAt: decoded.exp
@@ -162,7 +169,7 @@ function createUser(input) {
             .then(createAuthToken)
             .then(function (login) {
             resolve({
-                userId: login.userId.toString(),
+                userId: login.userId,
                 token: login.token,
                 expireAt: login.expireAt,
             });

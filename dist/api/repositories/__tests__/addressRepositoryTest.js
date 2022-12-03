@@ -27,36 +27,29 @@ afterAll(() => __awaiter(void 0, void 0, void 0, function* () {
     jest.setTimeout(20000)
 })*/
 describe('Save Contact', () => {
-    /*it('1. Returns the data to be saved plus Id of logged user.', async () => {
-
-        const dummyUser = await createDummy()
-
+    it('1. Returns the data to be saved plus Id of logged user.', () => __awaiter(void 0, void 0, void 0, function* () {
+        const dummyUser = yield (0, user_1.createDummy)();
         const input = {
-            firstName: randFirstName(),
-            lastName: randLastName(),
-            phoneNo: randPhoneNumber(),
-            address: randStreetAddress(),
-            userId: dummyUser.userId,
-        }
-
-        const getUserEmail = await userRepository.getUserEmail(input)
-
-        const fullName = input.lastName + ', ' + input.firstName
-        
+            firstName: (0, falso_1.randFirstName)(),
+            lastName: (0, falso_1.randLastName)(),
+            phoneNo: (0, falso_1.randPhoneNumber)(),
+            address: (0, falso_1.randStreetAddress)(),
+            userId: dummyUser._id,
+        };
+        const getUserEmail = yield userRepository_1.default.getUserEmail(input);
+        const fullName = input.lastName + ', ' + input.firstName;
         const contactData = {
             firstName: input.firstName,
             lastName: input.lastName,
             phoneNo: input.phoneNo,
             address: input.address,
-        }
-
+        };
         const userData = {
             email: getUserEmail,
             fullName: fullName,
             userId: input.userId
-        }
-
-        await expect(addressRepository.saveContact(contactData, userData)).resolves.toEqual({
+        };
+        yield expect(addressRepository_1.default.saveContact(contactData, userData)).resolves.toEqual({
             userId: expect.stringMatching(/^[a-f0-9]{24}$/),
             email: {
                 email: expect.stringMatching(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i),
@@ -65,9 +58,8 @@ describe('Save Contact', () => {
             lastName: expect.any(String),
             phoneNo: expect.any(String),
             address: expect.any(String),
-        })
-
-    })*/
+        });
+    }));
     it('2. Returns user does not exist.', () => __awaiter(void 0, void 0, void 0, function* () {
         const input = {
             firstName: (0, falso_1.randFirstName)(),
@@ -102,7 +94,7 @@ describe('Get User Email', () => {
     it('1. Returns valid email of existing user incl. Id.', () => __awaiter(void 0, void 0, void 0, function* () {
         const dummyUser = yield (0, user_1.createDummy)();
         const userData = {
-            userId: dummyUser.userId
+            userId: dummyUser._id
         };
         yield expect(userRepository_1.default.getUserEmail(userData)).resolves.toEqual({
             //user: {

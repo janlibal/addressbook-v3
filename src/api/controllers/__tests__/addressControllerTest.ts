@@ -22,14 +22,10 @@ afterAll(async () => {
     jest.setTimeout(20000)
 })*/
 
-// change hard coded userId with a dummy and authorized userId
-const testUserId = '6381d73a6f7c314304503426'
-const testToken = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzgxZDczYTZmN2MzMTQzMDQ1MDM0MjYiLCJpYXQiOjE2Njk3MTIzNDEsImV4cCI6MTY3MDkyMTk0MX0.OTVYwFL5gcuCxZzETDP_HbnuBvlg0mlgZh1qcNaNEqI283R1ovhEVhCzudDkoapNjHgFEag_cMoakTTQBVaiXUlbdrObG_slh_-OxjU59imPfIdI0aLfaGxvTO5Mawlg98DO2b2prUe27RQe74fzNcdN_O54-soXDWl9j7OtX8QzGF_3Mx-ZlhzV3W1utFOPm7HGLDHQ_ZPAGR_7JNrMKiL4grcuN-40wnDb2zVBb6yQR8SLirTW8nmcJGPa-lifxfP3-dSQNc76QxoV3I2-Ij_G3paI9CCrAXYrqMqCZbPDr0_fg8egUad-olwt8EmrwaCy2DtByGV26noep9rr0Q'
 
 describe('POST /contact', () => {
-    /*it('1. should return 200 & valid response if request param list is correct', async () => {
-        //const userToken = await authorizeUser(testUserId)
-
+    it('1. should return 200 & valid response if request param list is correct', async () => {
+        
         const user = await createDummyAndAuthorize()
         
         const input = {
@@ -37,7 +33,7 @@ describe('POST /contact', () => {
             lastName: randLastName(),
             phoneNo: randPhoneNumber(),
             address: randStreetAddress(),
-            userId: user.userId 
+            userId: user._id 
         }
 
         const res = await request(server)
@@ -55,7 +51,7 @@ describe('POST /contact', () => {
             address: expect.any(String),
         })
        
-    })*/
+    })
 
     it('2. should return 401 if authorization is missing', async () => {
         const userToken = null
@@ -84,15 +80,13 @@ describe('POST /contact', () => {
 
     it('3. should return 400 if firstname is incorrect', async () => {
         const user = await createDummyAndAuthorize()
-        //const userToken =  await authorizeUser(testUserId)
-
-                
+                        
         const input = {
             firstName: 123456,
             lastName: randLastName(),
             phoneNo: randPhoneNumber(),
             address: randStreetAddress(),
-            userId: user.userId 
+            userId: user._id 
         }
 
         const res = await request(server)
@@ -116,14 +110,13 @@ describe('POST /contact', () => {
 
     it('3. should return 400 if lastname is incorrect', async () => {
         const user = await createDummyAndAuthorize()
-        //const userToken =  await authorizeUser(testUserId)
-
+        
         const input = {
             firstName: randFirstName(),
             lastName: 1234657,
             phoneNo: randPhoneNumber(),
             address: randStreetAddress(),
-            userId: user.userId
+            userId: user._id
         }
 
         const res = await request(server)
@@ -149,14 +142,13 @@ describe('POST /contact', () => {
 
     it('4. should return 400 if phone number is incorrect', async () => {
         const user = await createDummyAndAuthorize()
-        //const userToken =  await authorizeUser(testUserId)
-
+        
         const input = {
             firstName: randFirstName(),
             lastName: randLastName(),
             phoneNo: 1212545,
             address: randStreetAddress(),
-            userId: user.userId
+            userId: user._id
         }
 
         const res = await request(server)
@@ -179,14 +171,13 @@ describe('POST /contact', () => {
 
     it('5. should return 400 if address is incorrect', async () => {
         const user = await createDummyAndAuthorize()
-        //const userToken =  await authorizeUser(testUserId)
-
+        
         const input = {
             firstName: randFirstName(),
             lastName: randLastName(),
             phoneNo: randPhoneNumber(),
             address: 4567890,
-            userId: user.userId
+            userId: user._id
         }
 
         const res = await request(server)
@@ -209,13 +200,12 @@ describe('POST /contact', () => {
 
     it('6. should return 400 if firstname is missing', async () => {
         const user = await createDummyAndAuthorize()
-        //const userToken =  await authorizeUser(testUserId)
-
+        
         const input = {
             lastName: randLastName(),
             phoneNo: randPhoneNumber(),
             address: randStreetAddress(),
-            userId: user.userId
+            userId: user._id
         }
 
         const res = await request(server)
@@ -238,13 +228,12 @@ describe('POST /contact', () => {
 
     it('7. should return 400 if lastname is missing', async () => {
         const user = await createDummyAndAuthorize()
-        //const userToken =  await authorizeUser(testUserId)
-
+        
         const input = {
             firstName: randFirstName(),
             phoneNo: randPhoneNumber(),
             address: randStreetAddress(),
-            userId: user.userId
+            userId: user._id
         }
 
         const res = await request(server)
@@ -267,13 +256,12 @@ describe('POST /contact', () => {
 
     it('8. should return 400 if phone number is missing', async () => {
         const user = await createDummyAndAuthorize()
-        //const userToken =  await authorizeUser(testUserId)
-
+        
         const input = {
             firstName: randFirstName(),
             lastName: randLastName(),
             address: randStreetAddress(),
-            userId: user.userId
+            userId: user._id
         }
 
         const res = await request(server)
@@ -297,13 +285,12 @@ describe('POST /contact', () => {
 
     it('9. should return 400 if address is missing', async () => {
         const user = await createDummyAndAuthorize()
-        //const userToken =  await authorizeUser(testUserId)
-
+        
         const input = {
             firstName: randFirstName(),
             lastName: randLastName(),
             phoneNo: randPhoneNumber(),
-            userId: user.userId
+            userId: user._id
         }
 
         const res = await request(server)

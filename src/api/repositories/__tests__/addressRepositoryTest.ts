@@ -18,7 +18,7 @@ afterAll(async () => {
 
 
 describe('Save Contact', () => {
-    /*it('1. Returns the data to be saved plus Id of logged user.', async () => {
+    it('1. Returns the data to be saved plus Id of logged user.', async () => {
 
         const dummyUser = await createDummy()
 
@@ -27,7 +27,7 @@ describe('Save Contact', () => {
             lastName: randLastName(),
             phoneNo: randPhoneNumber(),
             address: randStreetAddress(),
-            userId: dummyUser.userId,
+            userId: dummyUser._id,
         }
 
         const getUserEmail = await userRepository.getUserEmail(input)
@@ -58,7 +58,7 @@ describe('Save Contact', () => {
             address: expect.any(String),
         })
 
-    })*/
+    })
 
     it('2. Returns user does not exist.', async () => {
         const input = {
@@ -98,13 +98,14 @@ describe('Save Contact', () => {
     })
 })
 
+
 describe('Get User Email', () => {
     it('1. Returns valid email of existing user incl. Id.', async () => {
 
         const dummyUser = await createDummy()
 
         const userData = {
-            userId: dummyUser.userId
+            userId: dummyUser._id
         }
 
         await expect(userRepository.getUserEmail(userData)).resolves.toEqual(

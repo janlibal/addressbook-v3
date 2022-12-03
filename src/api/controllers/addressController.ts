@@ -8,7 +8,6 @@ export async function contact(req: Request, res: Response, next: NextFunction) {
 
     const userId = res.locals.auth.userId
 
-
     const input = {
         firstName: req.body.firstName,
         lastName: req.body.lastName,

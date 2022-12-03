@@ -94,7 +94,7 @@ describe('POST /api/v1/login', () => {
             .expect(200)
         //expect(res.header['x-expires-after']).toMatch(/^(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))$/)
         expect(res.body).toEqual({
-            userId: expect.stringMatching(/^[a-f0-9]{24}$/),
+            _id: expect.stringMatching(/^[a-f0-9]{24}$/),
             token: expect.stringMatching(/^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/),
             expireAt: expect.any(String),
         })
