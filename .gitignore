@@ -1,5 +1,3 @@
+config
 dist
 node_modules
-*.pem
-*.prod
-*.test
