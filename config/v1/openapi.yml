@@ -8,12 +8,12 @@ info:
     license:
         name: MIT
         url: https://opensource.org/licenses/MIT
-    version: 1.0.0
+    version: 3.0.0
 externalDocs:
     description: Find out more about Swagger
     url: http://swagger.io
 servers:
-    - url: /api/v1
+    - url: /
 
 tags:
     - name: AddressBook
@@ -40,7 +40,76 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/HelloResponse'
+                                $ref: '#/components/schemas/TestResponse'
+
+
+
+
+    /api/v1/contact:
+        post:
+            summary: Save address
+            description: Saves an address into Firebase
+            tags:
+                - contact
+            operationId: contact
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            additionalProperties: false
+                            required:
+                                - firstName
+                                - lastName
+                                - phoneNo
+                                - address
+                            properties:
+                                firstName:
+                                    type: string
+                                lastName:
+                                    type: string
+                                phoneNo:
+                                    type: string
+                                address:
+                                    type: string
+            security:
+                - bearerAuth: []
+            responses:
+                201:
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                additionalProperties: false
+                                required:
+                                    - firstName
+                                    - lastName
+                                    - phoneNo
+                                    - address
+                                properties:
+                                    firstName:
+                                        type: string
+                                    lastName:
+                                        type: string
+                                    phoneNo:
+                                        type: string
+                                    address:
+                                        type: string
+                409:
+                    description: Conflict
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/FailResponse'
+                500:
+                    description: Internal Server Error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/FailResponse'
+                                        
 
 
     /api/v1/user:
@@ -181,7 +250,7 @@ components:
                 error:
                     type: string
 
-        HelloResponse:
+        TestResponse:
             type: object
             additionalProperties: false
             required:

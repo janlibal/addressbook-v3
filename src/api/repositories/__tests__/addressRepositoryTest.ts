@@ -12,17 +12,13 @@ afterAll(async () => {
     await db.close()
 })
 
-/*beforeEach(async () => {
-    jest.setTimeout(20000)
-})*/
-
 
 describe('Save Contact', () => {
     it('1. Returns the data to be saved plus Id of logged user.', async () => {
 
         const dummyUser = await createDummy()
 
-        const input = {
+        const data = {
             firstName: randFirstName(),
             lastName: randLastName(),
             phoneNo: randPhoneNumber(),
@@ -30,28 +26,22 @@ describe('Save Contact', () => {
             userId: dummyUser._id,
         }
 
-        const getUserEmail = await userRepository.getUserEmail(input)
-
-        const fullName = input.lastName + ', ' + input.firstName
+        const fullName = data.lastName + ', ' + data.firstName
         
         const contactData = {
-            firstName: input.firstName,
-            lastName: input.lastName,
-            phoneNo: input.phoneNo,
-            address: input.address,
+            firstName: data.firstName,
+            lastName: data.lastName,
+            phoneNo: data.phoneNo,
+            address: data.address,
         }
 
         const userData = {
-            email: getUserEmail,
             fullName: fullName,
-            userId: input.userId
+            userId: data.userId
         }
 
         await expect(addressRepository.saveContact(contactData, userData)).resolves.toEqual({
             userId: expect.stringMatching(/^[a-f0-9]{24}$/),
-            email: {
-                email: expect.stringMatching(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i),
-            },
             firstName: expect.any(String),
             lastName: expect.any(String),
             phoneNo: expect.any(String),
@@ -69,8 +59,6 @@ describe('Save Contact', () => {
             userId: null,
         }
 
-        const userEmail = userRepository.getUserEmail(input)
-
         const fullName = input.lastName + ', ' + input.firstName
 
         const contactData = {
@@ -81,7 +69,6 @@ describe('Save Contact', () => {
         }
 
         const userData = {
-            userEmail: userEmail,
             fullName: fullName,
             userId: input.userId,
         }
@@ -93,43 +80,6 @@ describe('Save Contact', () => {
                 type: 'invalid_credentials',
                 message: 'User does not exist',
             },
-            //error: {type: 'internal_server_error', message: 'Internal Server Error'}
         })
-    })
-})
-
-
-describe('Get User Email', () => {
-    it('1. Returns valid email of existing user incl. Id.', async () => {
-
-        const dummyUser = await createDummy()
-
-        const userData = {
-            userId: dummyUser._id
-        }
-
-        await expect(userRepository.getUserEmail(userData)).resolves.toEqual(
-            {
-                //user: {
-                //    email: expect.stringMatching(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i),
-                //},
-                email: expect.any(String)
-            }
-        )
-    })
-
-    it('2. Returns error for invalid user.', async () => {
-        const userData = {
-            userId: null,
-        }
-
-        await expect(userRepository.getUserEmail(userData)).resolves.toEqual(
-            {
-                error: {
-                    type: 'invalid_credentials',
-                    message: 'User does not exist',
-                },
-            }
-        )
     })
 })

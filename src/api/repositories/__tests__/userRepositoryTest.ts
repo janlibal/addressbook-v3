@@ -11,17 +11,14 @@ afterAll(async () => {
     await db.close()
 })
 
-/*beforeEach(async () => {
-    jest.setTimeout(20000)
-})*/
 
 describe('auth', () => {
     it('1. should resolve with true and valid userId for valid token', async () => {
         const dummy = await createDummyAndAuthorize()
 
         await expect(userRepository.auth(dummy.token)).resolves.toEqual({
-            userId: dummy._id,
-            //userId: expect.stringMatching(/^[a-f0-9]{24}$/),
+            //userId: dummy._id,
+            userId: expect.stringMatching(/^[a-f0-9]{24}$/),
             expireAt: expect.any(Number),
         })
     })
@@ -48,7 +45,7 @@ describe('createUser', () => {
         })
     })*/
 
-    it('4. should resolves with false & valid error if duplicate', async () => {
+    it('4. should resolve with false & valid error if duplicate', async () => {
         const userData = {
             email: randEmail(),
             password: randPassword(),
@@ -115,10 +112,6 @@ describe('login', () => {
                 type: 'invalid_credentials',
                 message: 'Invalid Login/Password',
             },
-            //expireAt: expect.any(Date),
-            //token: expect.stringMatching(/^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/),
-            //userId: expect.stringMatching(/^[a-f0-9]{24}$/)
-            //userId: dummyUser.userId
         })
     })
 })

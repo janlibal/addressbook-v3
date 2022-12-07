@@ -10,7 +10,7 @@ type AuthorizedRegisteredUser = { token: string;  _id: string; expireAt: Date }
 export function dummy() {
         
     return {
-        email: randEmail(),
+        email: randEmail({nameSeparator: '.'}),
         password: 'password123456' //randPassword(),
     }
 }

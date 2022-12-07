@@ -21,8 +21,6 @@ describe('save', () => {
         const user = new User({ email: email, password: password })
         await user.save()
 
-        //const after = Date.now()
-
         const fetched = await User.findById(user._id)
 
         expect(fetched).not.toBeNull()
@@ -31,8 +29,6 @@ describe('save', () => {
 
         expect(fetched!.password).not.toBe(password)
 
-        //expect(before).toBeLessThanOrEqual(fetched!.created.getTime())
-        //expect(fetched!.created.getTime()).toBeLessThanOrEqual(after)
     })
 
     it('2. should not save user with invalid email', async () => {

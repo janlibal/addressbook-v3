@@ -4,7 +4,8 @@ import { User } from '@addressbook/api/models/userModel'
 import logger from '@addressbook/utils/logger'
 
 export type ErrorResponse = { error: { type: string, message: string } }
-export type SaveContactResponse = ErrorResponse | { userId: string, email: string, firstName: string, lastName: string, phoneNo: number, address: string, }
+export type SaveContactResponse = ErrorResponse | { userId: string, firstName: string, lastName: string, phoneNo: number, address: string, }
+
 
 admin.initializeApp({
     credential: admin.credential.cert(credentials as admin.ServiceAccount),
@@ -13,10 +14,7 @@ admin.initializeApp({
 const _db = admin.firestore()
 
 
-async function saveContact(
-    contactData: any,
-    userData: any
-): Promise<SaveContactResponse> {
+async function saveContact(contactData: any, userData: any): Promise<SaveContactResponse> {
     try {
         const user = await User.findOne({ _id: userData.userId })
 
@@ -30,12 +28,9 @@ async function saveContact(
         }
 
         await _db.collection(userData.userId).doc(userData.fullName).set(contactData)
-
-  
       
         return {
             userId: userData.userId.toString(),
-            email: userData.email,
             firstName: contactData.firstName,
             lastName: contactData.lastName,
             phoneNo: contactData.phoneNo,

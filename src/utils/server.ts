@@ -40,9 +40,9 @@ export async function createServer(): Promise<Express> {
     server.use(expressDevLogger)
   }
 
+  V1SwaggerDocs(server, config.port)
+  
   routes(server)
-    
-  V1SwaggerDocs(server, 3000);
   
   return server
 }

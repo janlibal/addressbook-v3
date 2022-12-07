@@ -15,7 +15,7 @@ export async function contact(req: Request, res: Response, next: NextFunction) {
         address: req.body.address,
         userId: userId
     }
-    
+
     try {
 
         await addressOperations.addContact(input, res)

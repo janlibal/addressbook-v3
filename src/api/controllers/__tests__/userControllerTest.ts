@@ -17,9 +17,6 @@ afterAll(async () => {
     await db.close()
 })
 
-/*beforeEach(async () => {
-    jest.setTimeout(20000)
-})*/
 
 describe('POST /api/v1/user', () => {
     it('1. should return 201 & valid response for valid user', async () => {
@@ -34,10 +31,8 @@ describe('POST /api/v1/user', () => {
             .expect(200)
         expect(res.body).toMatchObject({
             userId: expect.stringMatching(/^[a-f0-9]{24}$/),
-            token: expect.stringMatching(
-                /^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/
-            ),
-            expireAt: expect.any(String), //expireAt: expect.any(Date),
+            token: expect.stringMatching(/^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/),
+            expireAt: expect.any(String), 
         })
     })
 
@@ -86,7 +81,7 @@ describe('POST /api/v1/user', () => {
 
 describe('POST /api/v1/login', () => {
 
-
+   
     /*it('4. should return 200 & valid response for a valid login request', async () => {
         const dummy = await createDummy()
 

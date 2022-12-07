@@ -5,34 +5,6 @@ import { writeJsonResponse } from '@addressbook/utils/express'
 import logger from '@addressbook/utils/logger'
 
 
-
-
-/*export function auth(req: Request, res: Response, next: NextFunction): void {
-  const token = req.headers.authorization!
-  userRepository
-      .auth(token)
-      .then((authResponse) => {
-          if (!(authResponse as any).error) {
-              res.locals.auth = {
-                  userId: (authResponse as { userId: string }).userId,
-                  expireAt: (authResponse as { expireAt: Number }).expireAt,
-              }
-              next()
-          } else {
-              writeJsonResponse(res, 401, authResponse)
-          }
-      })
-      .catch((err) => {
-          writeJsonResponse(res, 500, {
-              error: {
-                  type: 'internal_server_error',
-                  message: 'Internal Server Error',
-              },
-          })
-      })
-}*/
-
-
 export function auth(req: Request, res: Response, next: NextFunction): void {
     const token = req.headers.authorization!
     userRepository
@@ -69,7 +41,7 @@ export async function login(req: Request, res: Response, next: NextFunction) {
     
   try {
       await userOperations.login(input, res)
-      //return res.status(201).json(user);
+      
   } catch (e) {
       return next(e)
   }

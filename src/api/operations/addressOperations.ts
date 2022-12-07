@@ -7,9 +7,9 @@ import userRepository from '../repositories/userRepository'
 export type ErrorResponse = { error: { type: string; message: string } }
 
 export function addContact(input: any, res: Response): void {
-
-    const userEmail = userRepository.getUserEmail(input.userId)
+    
     const fullName = input.lastName + ', ' + input.firstName
+
 
     const contactData = {
         firstName: input.firstName,
@@ -19,10 +19,11 @@ export function addContact(input: any, res: Response): void {
     }
 
     const userData = {
-        userEmail: userEmail,
         fullName: fullName,
         userId: input.userId,
     }
+
+    
 
     addressRepository.saveContact(contactData, userData)
         .then((resp) => {
@@ -34,17 +35,9 @@ export function addContact(input: any, res: Response): void {
                 }
             } else {
                 const { 
-                  userId, email, firstName, lastName, phoneNo, address } = resp as { userId: string, email: string, firstName: string, lastName: string, phoneNo: number, address: string
+                  userId, firstName, lastName, phoneNo, address } = resp as { userId: string, firstName: string, lastName: string, phoneNo: number, address: string
                 }
-                //writeJsonResponse(res, 200, {userId: _id, token: token}, {'X-Expires-After': expireAt.toISOString()})
-                writeJsonResponse(res, 200, {
-                    userId,
-                    email,
-                    firstName,
-                    lastName,
-                    phoneNo,
-                    address,
-                })
+                writeJsonResponse(res, 200, { userId, firstName, lastName, phoneNo, address })
             }
         })
         .catch((err: any) => {

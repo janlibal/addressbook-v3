@@ -10,8 +10,6 @@ export type ErrorResponse = { error: { type: string; message: string } }
 export type CreateUserResponse = ErrorResponse | { userId: string; token: string; expireAt: Date; }
 export type LoginUserResponse = ErrorResponse | { userId: string; token: string; expireAt: Date;  }
 export type AuthResponse = ErrorResponse | { userId: string; expireAt: Date }
-export type GetUserEmailResponse = ErrorResponse |  { email: string }
-
 
 const privateKey = fs.readFileSync(config.privateKeyFile)
 const privateSecret = {
@@ -29,44 +27,9 @@ const verifyOptions: VerifyOptions = {
 }
 
 
-async function getUserEmail(data: any): Promise<GetUserEmailResponse> {
-    try {
-        const user = await User.findOne({ _id: data.userId })
-
-        if (!user) {
-            return {
-                error: {
-                    type: 'invalid_credentials',
-                    message: 'User does not exist',
-                },
-            }
-        }
-
-        return {
-            //userId: user._id.toString(),
-            email: user.email,
-        }
-
-       
-
-    } catch (err) {
-        logger.error(`getUserEmail: ${err}`)
-        return Promise.reject({
-            error: {
-                type: 'internal_server_error',
-                message: 'Internal Server Error',
-            },
-        })
-    }
-}
-
-
-
 function createAuthToken(data: any): Promise<{ userId: string; token: string; expireAt: Date }> {
     return new Promise(function (resolve, reject) {
         let userId:string
-        //const userId = data._id ?? data
-        //const userId = data._id ?? data.userId
         if(!data._id){
             userId = data
         } else {
@@ -143,12 +106,8 @@ function auth(bearerToken: string): Promise<AuthResponse> {
     return new Promise(function (resolve, reject) {
         const token = bearerToken.replace('Bearer ', '')
         jwt.verify(token, publicKey, verifyOptions, (err: VerifyErrors | null, decoded: any | undefined) => {
-        //jwt.verify(token, publicKey, verifyOptions, (err, decoded) => {
             if (err === null && decoded !== undefined) {
-                //const d = decoded as { userId?: string; exp: Date }
-                //if (d.userId) {
                 if (decoded.userId) {
-                    //if (decoded.exp) {
                     resolve({
                         userId: decoded.userId,
                         expireAt: decoded.exp
@@ -183,18 +142,11 @@ function createUser(input: any): Promise<CreateUserResponse> {
             .then(createAuthToken)
             .then(function (login) {
                 resolve({
-                    userId: login.userId, //.toString(),
+                    userId: login.userId,
                     token: login.token,
                     expireAt: login.expireAt,
                 })
             })
-            /*.then(u => {
-        //const result = {userId: u._id.toString()}
-        //return result
-        resolve({
-          userId: u._id.toString()
-        })
-      })*/
             .catch((err) => {
                 if (err.code === 11000) {
                     resolve({
@@ -216,5 +168,4 @@ export default {
      auth:auth,
      login: login,
      createAuthToken: createAuthToken,
-     getUserEmail: getUserEmail
 }

@@ -72,12 +72,7 @@ export function login(input: any, res: Response): void {
                     token: string
                     expireAt: Date
                 }
-                //writeJsonResponse(res, 200, {userId: _id, token: token}, {'X-Expires-After': expireAt.toISOString()})
-                writeJsonResponse(res, 200, {
-                    userId: userId,
-                    token: token,
-                    expireAt: expireAt,
-                })
+                writeJsonResponse(res, 200, { userId: userId, token: token, expireAt: expireAt })
             }
         })
         .catch((err: any) => {

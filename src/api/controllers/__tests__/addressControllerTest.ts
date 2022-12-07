@@ -18,10 +18,6 @@ afterAll(async () => {
     await db.close()
 })
 
-/*beforeEach(async () => {
-    jest.setTimeout(20000)
-})*/
-
 
 describe('POST /contact', () => {
     it('1. should return 200 & valid response if request param list is correct', async () => {
@@ -36,7 +32,7 @@ describe('POST /contact', () => {
             userId: user._id 
         }
 
-        const res = await request(server)
+            const res = await request(server)
             .post(`/api/v1/contact`)
             .set('Authorization', `Bearer ${user.token}`)
             .send(input)
