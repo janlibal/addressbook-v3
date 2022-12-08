@@ -1,5 +1,4 @@
 import { randEmail, randPassword } from '@ngneat/falso'
-
 import User from '@addressbook/api/models/userModel'
 import db from '@addressbook/utils/db'
 

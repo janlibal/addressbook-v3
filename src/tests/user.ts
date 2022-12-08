@@ -1,6 +1,6 @@
 import User from '@addressbook/api/models/userModel'
 import userRepository from '@addressbook/api/repositories/userRepository'
-import { randCompanyName, randEmail, randFirstName, randLastName, randPassword } from '@ngneat/falso'
+import { randEmail } from '@ngneat/falso'
 
 type DummyUser = { email: string; password: string; _id: string }
 
@@ -11,7 +11,7 @@ export function dummy() {
         
     return {
         email: randEmail({nameSeparator: '.'}),
-        password: 'password123456' //randPassword(),
+        password: 'password12345678',
     }
 }
 

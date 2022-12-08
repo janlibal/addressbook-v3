@@ -1,6 +1,5 @@
 import request from 'supertest'
 import {Express} from 'express-serve-static-core'
-
 import {createServer} from '@addressbook/utils/server'
 
 let server: Express

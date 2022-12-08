@@ -9,9 +9,7 @@ import { createUserSchema, loginUserSchema } from '@addressbook/schemas/userSche
 const router = express.Router()
 
 router.get('/test', test)
-
 router.post('/user', validate(createUserSchema), createUser)
 router.post('/login', validate(loginUserSchema), login)
-//router.post('/contact', validate(createAddressSchema), contact)
 
 export default router

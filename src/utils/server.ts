@@ -14,7 +14,6 @@ import morganBody from 'morgan-body'
 import config from '@addressbook/config'
 import {expressDevLogger} from '@addressbook/utils/express_dev_logger'
 
-import swaggerUi from 'swagger-ui-express'
 import V1SwaggerDocs from '@addressbook/routes/v1/swagger'
 
 

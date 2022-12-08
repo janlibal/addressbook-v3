@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import { writeJsonResponse } from '@addressbook/utils/express'
 import addressRepository from '@addressbook/api/repositories/addressRepository'
 import logger from '@addressbook/utils/logger'
-import userRepository from '../repositories/userRepository'
+
 
 export type ErrorResponse = { error: { type: string; message: string } }
 

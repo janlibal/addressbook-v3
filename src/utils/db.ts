@@ -1,8 +1,6 @@
 /* istanbul ignore file */
 
 import mongoose from 'mongoose'
-//import {MongoMemoryServer} from 'mongodb-memory-server'
-
 import config from '@addressbook/config'
 import logger from '@addressbook/utils/logger'
 
@@ -22,8 +20,6 @@ const opts = {
 
 class MongoConnection {
     private static _instance: MongoConnection
-
-    //private _mongoServer?: MongoMemoryServer
 
     static getInstance(): MongoConnection {
         if (!MongoConnection._instance) {

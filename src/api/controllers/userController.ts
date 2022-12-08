@@ -2,8 +2,6 @@ import { Request, Response, NextFunction } from 'express'
 import userRepository from '@addressbook/api/repositories/userRepository'
 import userOperations from '@addressbook/api/operations/userOperations'
 import { writeJsonResponse } from '@addressbook/utils/express'
-import logger from '@addressbook/utils/logger'
-
 
 export function auth(req: Request, res: Response, next: NextFunction): void {
     const token = req.headers.authorization!
@@ -13,7 +11,6 @@ export function auth(req: Request, res: Response, next: NextFunction): void {
             if (!(authResponse as any).error) {
                 res.locals.auth = {
                     userId: (authResponse as { userId: string }).userId,
-                    //expireAt: (authResponse as { expireAt: Date }).expireAt,
                 }
                 next()
             } else {
@@ -29,8 +26,6 @@ export function auth(req: Request, res: Response, next: NextFunction): void {
             })
         })
 }
-
-
 
 
 export async function login(req: Request, res: Response, next: NextFunction) {

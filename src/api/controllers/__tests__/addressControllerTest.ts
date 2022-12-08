@@ -1,12 +1,9 @@
 import { randLastName, randFirstName, randPhoneNumber, randStreetAddress } from '@ngneat/falso'
 import request from 'supertest'
 import { Express } from 'express-serve-static-core'
-
 import db from '@addressbook/utils/db'
 import { createServer } from '@addressbook/utils/server'
-import { authorizeUser, createDummy, createDummyAndAuthorize } from '@addressbook/tests/user'
-import userRepository from '@addressbook/api/repositories/userRepository'
-import { Response } from 'swagger-jsdoc'
+import {  createDummyAndAuthorize } from '@addressbook/tests/user'
 
 let server: Express
 beforeAll(async () => {

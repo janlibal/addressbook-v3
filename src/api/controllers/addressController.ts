@@ -1,10 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
-import { writeJsonResponse } from '../../utils/express'
 import addressOperations from '@addressbook/api/operations/addressOperations'
-import userRepository from '../repositories/userRepository'
 
 export async function contact(req: Request, res: Response, next: NextFunction) {
-
 
     const userId = res.locals.auth.userId
 

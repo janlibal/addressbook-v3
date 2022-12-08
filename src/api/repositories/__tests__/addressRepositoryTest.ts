@@ -1,5 +1,4 @@
 import addressRepository from '../addressRepository'
-import userRepository from '../userRepository'
 import db from '@addressbook/utils/db'
 import { randFirstName, randLastName, randPhoneNumber, randStreetAddress } from '@ngneat/falso'
 import { createDummy } from '@addressbook/tests/user'
