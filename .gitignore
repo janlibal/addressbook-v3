@@ -1,5 +1,5 @@
 config/.env.prod
-config/env.test.prod
+config/.env.test
 config/jwt/.private.pem
 config/jwt/.public.pem
 node_modules

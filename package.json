@@ -13,7 +13,8 @@
     "dev": "cross-env ENV_FILE=./config/.env.dev ts-node -r tsconfig-paths/register ./src/index.ts",
     "lint:check": "eslint .",
     "lint:fix": "eslint --fix .",
-    "test": "cross-env ENV_FILE=./config/.env.test jest"
+    "test": "cross-env ENV_FILE=./config/.env.test jest",
+    "test:dev": "cross-env ENV_FILE=./config/.env.test.dev jest"
   },
   "author": "",
   "license": "ISC",

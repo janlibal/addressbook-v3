@@ -41,7 +41,7 @@ describe('createUser', () => {
         await expect(userRepository.createUser(userData)).resolves.toEqual({
             userId: expect.stringMatching(/^[a-f0-9]{24}$/),
             token: expect.stringMatching(/^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/ ),
-            expireAt: expect.any(Date),
+            expireAt: expect.any(Date)
         })
     })*/
 
