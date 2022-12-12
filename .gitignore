@@ -1,6 +1,6 @@
 config/.env.prod
 config/.env.test
-config/jwt/.private.pem
-config/jwt/.public.pem
+config/jwt/private.pem
+config/jwt/public.pem
 node_modules
 dist
