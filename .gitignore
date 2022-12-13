@@ -3,4 +3,5 @@ config/.env.test
 config/jwt/private.pem
 config/jwt/public.pem
 node_modules
+src/config/firestore/key.json
 dist
