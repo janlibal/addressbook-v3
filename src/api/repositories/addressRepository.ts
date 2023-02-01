@@ -1,5 +1,3 @@
-import admin from 'firebase-admin'
-import credentials from '@addressbook/config/firestore/key.json'
 import { User } from '@addressbook/api/models/userModel'
 import logger from '@addressbook/utils/logger'
 import { _db } from '@addressbook/utils/firebase'
