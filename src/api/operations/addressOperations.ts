@@ -6,6 +6,45 @@ import logger from '@addressbook/utils/logger'
 
 export type ErrorResponse = { error: { type: string; message: string } }
 
+export function getMyContacts(userId: string, res: Response): void {
+
+    const userData = {
+        userId: userId
+    }
+    
+    addressRepository.retrieveContacts(userData)
+        .then((resp) => {
+            if ((resp as any).error) {
+                if ((resp as ErrorResponse).error.type === 'invalid_credentials') {
+                    writeJsonResponse(res, 404, resp)
+                } else {
+                    throw new Error(`unsupported ${resp}`)
+                }
+            } else {
+                const { 
+                  data } = resp as { data: any
+                }
+                writeJsonResponse(res, 200, { data })
+            }
+        })
+        .catch((err: any) => {
+            logger.error(`saveContact: ${err}`)
+            writeJsonResponse(res, 500, {
+                error: {
+                    type: 'internal_server_error',
+                    message: 'Internal Server Error',
+                },
+            })
+        })
+}
+
+
+
+
+
+
+
+
 export function addContact(input: any, res: Response): void {
     
     const fullName = input.lastName + ', ' + input.firstName
@@ -53,4 +92,5 @@ export function addContact(input: any, res: Response): void {
 
 export default {
     addContact: addContact,
+    getMyContacts: getMyContacts,
 }

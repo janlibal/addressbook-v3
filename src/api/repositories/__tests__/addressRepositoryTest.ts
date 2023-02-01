@@ -82,3 +82,42 @@ describe('Save Contact', () => {
         })
     })
 })
+
+
+describe('Retrieve contacts', () => {
+    it('1. Retrieves data of logged user.', async () => {
+
+        const dummyUser = await createDummy()
+
+        const data = {
+            firstName: randFirstName(),
+            lastName: randLastName(),
+            phoneNo: randPhoneNumber(),
+            address: randStreetAddress(),
+            userId: dummyUser._id,
+        }
+
+        const fullName = data.lastName + ', ' + data.firstName
+        
+        const contactData = {
+            firstName: data.firstName,
+            lastName: data.lastName,
+            phoneNo: data.phoneNo,
+            address: data.address,
+        }
+
+        const userData = {
+            fullName: fullName,
+            userId: data.userId
+        }
+
+        await expect(addressRepository.saveContact(contactData, userData)).resolves.toEqual({
+            userId: expect.stringMatching(/^[a-f0-9]{24}$/),
+            firstName: expect.any(String),
+            lastName: expect.any(String),
+            phoneNo: expect.any(String),
+            address: expect.any(String),
+        })
+
+    })
+})

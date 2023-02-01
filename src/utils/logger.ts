@@ -34,7 +34,7 @@ const logger = winston.createLogger({
         winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss.SSS' }),
         prettyJson
     ),
-    defaultMeta: { service: 'api-example' },
+    defaultMeta: { service: 'addressbook' },
     transports: [new winston.transports.Console({})],
 })
 
