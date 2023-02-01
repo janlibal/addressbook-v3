@@ -8,8 +8,6 @@ export type SaveContactResponse = ErrorResponse | { userId: string, firstName: s
 export type ExtractContactsResponse = ErrorResponse | { data: any }
 
 
-
-
 admin.initializeApp({
     credential: admin.credential.cert(credentials as admin.ServiceAccount),
 })
