@@ -1,19 +1,10 @@
 import { User } from '@addressbook/api/models/userModel'
+import { _db } from '@addressbook/config/firestore/firestoreInit'
 import logger from '@addressbook/utils/logger'
-import credentials from '@addressbook/config/firestore/key.json'
-import admin from 'firebase-admin'
 
 export type ErrorResponse = { error: { type: string, message: string } }
 export type SaveContactResponse = ErrorResponse | { userId: string, firstName: string, lastName: string, phoneNo: number, address: string, }
 export type ExtractContactsResponse = ErrorResponse | { data: any }
-
-
-admin.initializeApp({
-    credential: admin.credential.cert(credentials as admin.ServiceAccount),
-})
-
-const _db = admin.firestore()
-
 
 async function retrieveContacts(userData: any): Promise<ExtractContactsResponse> {
     try {

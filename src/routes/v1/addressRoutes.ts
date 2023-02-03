@@ -7,8 +7,7 @@ import { auth } from '@addressbook/api/controllers/userController'
 const router = express.Router()
 
 router.use(auth)
-router.post('/contact', validate(createAddressSchema), contact)
 router.get('/contact', getContacts)
-
+router.post('/contact', validate(createAddressSchema), contact)
 
 export default router

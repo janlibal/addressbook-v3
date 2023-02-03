@@ -15,7 +15,6 @@
     "lint:fix": "eslint --fix .",
     "test": "cross-env ENV_FILE=./config/.env.test jest",
     "test:dev": "cross-env ENV_FILE=./config/.env.test.dev jest"
-    
   },
   "author": "",
   "license": "ISC",
