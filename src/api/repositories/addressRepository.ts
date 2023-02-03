@@ -1,5 +1,5 @@
 import { User } from '@addressbook/api/models/userModel'
-import { _db } from '@addressbook/config/firestore/firestoreInit'
+import _db from '@addressbook/config/firestore/firestoreInit'
 import logger from '@addressbook/utils/logger'
 
 export type ErrorResponse = { error: { type: string, message: string } }
