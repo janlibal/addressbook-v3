@@ -74,6 +74,7 @@ userSchema.methods.comparePassword = function (candidatePassword: string): Promi
     })
 }
 
+
 export type IUserModel = Model<IUser>
 
 export const User: IUserModel = model<IUser, IUserModel>('User', userSchema)

@@ -1,13 +1,15 @@
 import express from 'express'
-import { contact, getContacts } from '@addressbook/api/controllers/addressController'
+import { createContact, getContacts  } from '@addressbook/controllers/addressController'
 import { validate } from '@addressbook/middleware/validate'
 import { createAddressSchema } from '@addressbook/schemas/addressSchema'
-import { auth } from '@addressbook/api/controllers/userController'
+
+import { authenticate } from '@addressbook/utils/auth'
 
 const router = express.Router()
 
-router.use(auth)
+router.use(authenticate)
 router.get('/contact', getContacts)
-router.post('/contact', validate(createAddressSchema), contact)
+router.post('/contact', validate(createAddressSchema), createContact)
+
 
 export default router

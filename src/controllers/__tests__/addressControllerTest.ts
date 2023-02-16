@@ -37,13 +37,20 @@ describe('POST /contact', () => {
             .expect(200)
                     
             expect(res.body).toMatchObject({
-            userId: expect.stringMatching(/^[a-f0-9]{24}$/),
-            firstName: expect.any(String),
-            lastName: expect.any(String),
-            phoneNo: expect.any(String),
-            address: expect.any(String),
-        })
-       
+                response: {
+                         contact: {
+                           _writeTime: {
+                             _nanoseconds: expect.any(Number),
+                             _seconds: expect.any(Number),
+                           },
+                         },
+                         firstName: expect.any(String),
+                         lastName: expect.any(String),
+                         phoneNo: expect.any(String),
+                         userId: expect.stringMatching(/^[a-f0-9]{24}$/),
+                         address: expect.any(String),
+                }
+           })
     })
 
     it('2. should return 401 if authorization is missing', async () => {

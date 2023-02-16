@@ -1,5 +1,5 @@
 import express from 'express'
-import { login, createUser } from '@addressbook/api/controllers/userController'
+import { login, createUser } from '@addressbook/controllers/userController'
 import { validate } from '@addressbook/middleware/validate'
 import { createUserSchema, loginUserSchema } from '@addressbook/schemas/userSchema'
 
@@ -7,7 +7,7 @@ import { createUserSchema, loginUserSchema } from '@addressbook/schemas/userSche
 
 const router = express.Router()
 
-router.post('/user', validate(createUserSchema), createUser)
 router.post('/login', validate(loginUserSchema), login)
+router.post('/user', validate(createUserSchema), createUser)
 
 export default router

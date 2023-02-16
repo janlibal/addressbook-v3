@@ -1,6 +1,6 @@
 import express, {Request, Response, NextFunction} from 'express'
 import { Express } from 'express-serve-static-core'
-import routes from '@addressbook/routes/index'
+import routes from '@addressbook/api/index'
 
 import { connector, summarise } from 'swagger-routes-express'
 import YAML from 'yamljs'
@@ -14,7 +14,7 @@ import morganBody from 'morgan-body'
 import config from '@addressbook/config'
 import {expressDevLogger} from '@addressbook/utils/express_dev_logger'
 
-import V1SwaggerDocs from '@addressbook/routes/v1/swagger'
+import V1SwaggerDocs from '@addressbook/api/v1/routes/swagger'
 
 
 export async function createServer(): Promise<Express> {

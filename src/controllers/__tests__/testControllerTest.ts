@@ -17,3 +17,4 @@ describe('GET /api/v1/test', () => {
        expect(res.body).toMatchObject({'message': 'Hello, stranger!'})
   })
 })
+

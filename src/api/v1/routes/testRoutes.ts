@@ -1,5 +1,5 @@
 import express from 'express'
-import { test } from '@addressbook/api/controllers/testController'
+import { test } from '@addressbook/controllers/testController'
 
 const router = express.Router()
 

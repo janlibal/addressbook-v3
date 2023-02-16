@@ -3,6 +3,7 @@ import request from 'supertest'
 import { Express } from 'express-serve-static-core'
 import db from '@addressbook/utils/db'
 import { createServer } from '@addressbook/utils/server'
+import { createDummy, createPlainDummy } from '@addressbook/tests/user'
 
 
 let server: Express
@@ -27,31 +28,45 @@ describe('POST /api/v1/user', () => {
             .post(`/api/v1/user`)
             .send(userData)
             .expect(200)
-        expect(res.body).toMatchObject({
+     expect(res.body).toMatchObject({
+        response: {
             userId: expect.stringMatching(/^[a-f0-9]{24}$/),
             token: expect.stringMatching(/^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/),
-            expireAt: expect.any(String), 
+            expireAt: expect.any(String),
+            }
         })
     })
 
     it('2. should return 409 & valid response for duplicated user', async () => {
-        const data = {
+        
+        /*const data = {
             email: randEmail(),
             password: randPassword(),
-        }
+        }*/
 
-        await request(server).post(`/api/v1/user`).send(data)
-        expect(200)
+
+        const dummyUser = await createPlainDummy()
+    
+        const credentials = {
+            email: dummyUser.email,
+            password: dummyUser.password
+        }
+        
+        /*await request(server).post(`/api/v2/user`).send(data)
+        expect(200)*/
 
         const res = await request(server)
             .post(`/api/v1/user`)
-            .send(data)
-            .expect(409)
+            .send(credentials)
+            .expect(200)
         expect(res.body).toMatchObject({
-            error: {
-                type: 'account_already_exists',
-                message: expect.stringMatching(/already exists/),
-            },
+
+            response: {
+                error:  {
+                  message: `${credentials.email} already exists`,
+                  type: "account_already_exists",
+               }
+            }
         })
     })
 
@@ -80,8 +95,8 @@ describe('POST /api/v1/user', () => {
 describe('POST /api/v1/login', () => {
 
    
-    /*it('4. should return 200 & valid response for a valid login request', async () => {
-        const dummy = await createDummy()
+    it('1. should return 200 & valid response for a valid login request', async () => {
+        const dummy = await createPlainDummy()
 
         const res = await request(server)
             .post(`/api/v1/login`)
@@ -92,29 +107,33 @@ describe('POST /api/v1/login', () => {
             .expect(200)
         //expect(res.header['x-expires-after']).toMatch(/^(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))$/)
         expect(res.body).toEqual({
-            _id: expect.stringMatching(/^[a-f0-9]{24}$/),
-            token: expect.stringMatching(/^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/),
-            expireAt: expect.any(String),
+            response: {
+                userId: expect.stringMatching(/^[a-f0-9]{24}$/),
+                token: expect.stringMatching(/^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/),
+                expireAt: expect.any(String),
+                }
         })
-    })*/
+    })
 
-    it('5. should return 404 & valid response for a non-existing user', async () => {
+    it('2. should return 404 & valid response for a non-existing user', async () => {
         const res = await request(server)
             .post(`/api/v1/login`)
             .send({
                 email: randEmail(),
                 password: randPassword(),
             })
-            .expect(404)
+            .expect(200)
         expect(res.body).toEqual({
-            error: {
-                type: 'invalid_credentials',
-                message: 'Invalid Login/Password',
-            },
+            response: {
+                error: {
+                  message: "Invalid Login/Password",
+                  type: "invalid_credentials",
+               },
+            }
         })
     })
 
-    it('6. should return 400 & valid response for invalid request', async () => {
+    it('3. should return 400 & valid response for invalid request', async () => {
     const res = await request(server)
       .post(`/api/v1/login`)
       .send({
@@ -132,10 +151,6 @@ describe('POST /api/v1/login', () => {
             path: [ 'body', 'email']
 
         }]
-          //error: {
-          //  type: 'request_validation', 
-          //  message: expect.stringMatching(/email/)
-          //  }
         })
     })
 })
@@ -144,7 +159,7 @@ describe('POST /api/v1/login', () => {
   it('should return 500 & valid response if auth rejects with an error', async () => {
     (userRepository.login as jest.Mock).mockResolvedValue({error: {type: 'unknown'}})
     const res = await request(server)
-      .post(`/api/v1/login`)
+      .post(`/api/v2/login`)
       .send({
         email: randEmail(),
         password: randPassword()
