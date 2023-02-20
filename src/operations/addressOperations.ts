@@ -49,14 +49,3 @@ export default {
     createContact: createContact,
     getMyContacts: getMyContacts
 }
-
-
-
-
-
-
-
-
-
-
-

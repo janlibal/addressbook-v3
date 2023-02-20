@@ -16,7 +16,8 @@ async function createUser(input: any) {
         password: input.password,
     }
 
-    const existingUser = await userRepository.findByEmail(userData)
+    const existingUser = await userRepository.findUserByEmail(userData)
+
     if (existingUser) {
         return {
             error: {
@@ -29,6 +30,8 @@ async function createUser(input: any) {
     const createdUser = await userRepository.saveUser(userData)
     
     const authToken = await auth.createAuthToken(createdUser._id.toString())
+
+    
 
     return {
         userId: createdUser._id.toString(),
@@ -45,7 +48,7 @@ export async function login(input:any) {
         email: input.email,
         password: input.password,
     }
-    const user = await userRepository.findByEmail(loginData)
+    const user = await userRepository.findUserByEmail(loginData)
     if (!user) {
         return {
             error: {
@@ -66,8 +69,6 @@ export async function login(input:any) {
         }
     }
 
-    
-
    
     const authToken = await auth.createAuthToken(user._id.toString())
     
@@ -78,14 +79,6 @@ export async function login(input:any) {
     }
         
   }
-
-
-
-
-
-
-
-
 
 export default {
     login: login,

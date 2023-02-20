@@ -27,8 +27,14 @@ const verifyOptions: VerifyOptions = {
     algorithms: ['RS256']
 }
 
-async function findByEmail(userData: any) {
-    const user =  User.findOne({email: userData.email})
+
+async function findUserById(userData: any) {
+    const user =  await User.findOne({ _id: userData.userId })
+    return user
+}
+
+async function findUserByEmail(userData: any) {
+    const user =  await User.findOne({email: userData.email})
     return user
 }
 
@@ -37,7 +43,9 @@ async function saveUser(userData: any) {
     const user = new User({
         email: userData.email,
         password: userData.password,
-    }).save()
+    })
+    
+    await user.save()
   
     return user
 }
@@ -45,5 +53,6 @@ async function saveUser(userData: any) {
 
 export default {
      saveUser: saveUser,
-     findByEmail: findByEmail
+     findUserByEmail: findUserByEmail,
+     findUserById: findUserById
 }

@@ -115,7 +115,7 @@ describe('POST /api/v1/login', () => {
         })
     })
 
-    it('2. should return 404 & valid response for a non-existing user', async () => {
+    it('2. should return 200 & valid response for a non-existing user', async () => {
         const res = await request(server)
             .post(`/api/v1/login`)
             .send({

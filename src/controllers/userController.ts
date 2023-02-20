@@ -16,9 +16,14 @@ export async function createUser(req: Request, res: Response, next: NextFunction
 
     try {
     
-        const user = await userOperations.createUser(input)
+        const response = await userOperations.createUser(input)
 
-        writeJsonResponse(res, 200, { "response": user })
+        //writeJsonResponse(res, 200, { "response": user })
+        writeJsonResponse(res, 200, {
+            userId: response.userId,
+            token: response.token,
+            expireAt: response.expireAt,
+        })
 
     } catch (err: any) {
         logger.error(`createUser: ${err}`)
@@ -43,9 +48,10 @@ export async function login(req: Request, res: Response, next: NextFunction) {
 
     try {
     
-        const login = await userOperations.login(input)
+        const response = await userOperations.login(input)
 
-        writeJsonResponse(res, 200, { "response": login })
+        //writeJsonResponse(res, 200, { "response": login })
+        writeJsonResponse(res, 200, { userId: response.userId, token: response.token, expireAt: response.expireAt })
 
     } catch (err: any) {
         logger.error(`login: ${err}`)

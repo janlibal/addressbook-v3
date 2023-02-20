@@ -2,6 +2,7 @@ import { User } from '@addressbook/models/userModel'
 import logger from '@addressbook/utils/logger'
 import credentials from '@addressbook/config/firestore/key.json'
 import admin from 'firebase-admin'
+import userRepository from './userRepository'
 
 admin.initializeApp({
     credential: admin.credential.cert(credentials as admin.ServiceAccount),
@@ -12,13 +13,15 @@ const _db = admin.firestore()
 
 export type ErrorResponse = { error: { type: string, message: string } }
 export type SaveContactResponse = ErrorResponse | { userId: string, firstName: string, lastName: string, phoneNo: number, address: string, }
-export type ExtractContactsResponse = ErrorResponse | { data: any }
+export type GetMyContactsResponse = ErrorResponse | { data: any }
 
 
 
 async function getMyContacts(userData: any) {
     try {
-        const user = await User.findOne({ _id: userData.userId })
+
+        //const user = await User.findOne({ _id: userData.userId })
+        const user = userRepository.findUserById(userData)
 
         if (!user) {
             return {
@@ -51,8 +54,10 @@ async function getMyContacts(userData: any) {
   async function create(contactData: any, userData: any) {
 
     try {
-        const user = await User.findOne({ _id: userData.userId })
-
+        
+        //const user = await User.findOne({ _id: userData.userId })
+        const user = userRepository.findUserById(userData)
+        
         if (!user) {
             return {
                 error: {
